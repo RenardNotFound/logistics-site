@@ -67,22 +67,39 @@
     }
 
     function sendOrder() {
-      fetch("https://renardnotfound.alwaysdata.net/commande.php", {
+      const name = document.getElementById("client-name").value.trim();
+      if (!name) {
+        alert("Merci d'indiquer votre nom avant d'envoyer la commande.");
+        return;
+      }
+
+      if (cart.length === 0) {
+        alert("Votre panier est vide !");
+        return;
+      }
+
+      const formatted = cart.map(item => `- ${item.quantity || 1}x ${item.name}`).join("\n");
+      const total = cart.reduce((acc, item) => acc + item.price * (item.quantity || 1), 0);
+
+      const webhookURL = "https://discord.com/api/webhooks/1353329278087069739/zUz5A81UGb7iF2WRHbWdnPlQ-Vnh6yQMyrufullIQgUof2yL-3lBaV1gdAEDMJyhAjge";
+
+      fetch(webhookURL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          name: "Test",
-          cart: [
-            { name: "Pizza", quantity: 2 }
-          ],
-          total: 20
+          content: `📦 Nouvelle commande de **${name}** :\n${formatted}\n💰 Total : ${total}$`
         })
       })
-        .then(res => res.json())
-        .then(console.log)
-        .catch(console.error);
+        .then(() => {
+          alert("Commande envoyée sur Discord !");
+          localStorage.removeItem("cart");
+          location.reload();
+        })
+        .catch(err => {
+          console.error(err);
+          alert("Erreur d'envoi : " + err);
+        });
     }
-
 
     renderCart();
   </script>
