@@ -65,24 +65,55 @@
     }
 
     function sendOrder() {
-      const name = document.getElementById("client-name").value.trim();
-      if (!name) return alert("Merci d'indiquer votre nom avant d'envoyer la commande.");
+  const name = document.getElementById("client-name").value.trim();
+  if (!name) {
+    alert("Merci d'indiquer votre nom avant d'envoyer la commande.");
+    return;
+  }
 
-      const formatted = cart.map(item => `- ${item.quantity || 1}x ${item.name}`).join("\n");
-      const total = cart.reduce((acc, item) => acc + item.price * (item.quantity || 1), 0);
+  if (cart.length === 0) {
+    alert("Votre panier est vide !");
+    return;
+  }
 
-      const webhookURL = "https://discord.com/api/webhooks/1353329278087069739/zUz5A81UGb7iF2WRHbWdnPlQ-Vnh6yQMyrufullIQgUof2yL-3lBaV1gdAEDMJyhAjge"; // Remplace par le tien
+  const hasInvalidQuantity = cart.some(item => !item.quantity || item.quantity <= 0);
+  if (hasInvalidQuantity) {
+    alert("Toutes les quantités doivent être supérieures à zéro.");
+    return;
+  }
 
-      fetch(webhookURL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          content: `📦 Nouvelle commande de **${name}** :\n${formatted}\n💰 Total : ${total}$`
-        })
-      })
-      .then(() => alert("Commande envoyée sur Discord !"))
-      .catch(err => alert("Erreur d'envoi : " + err));
+  const formatted = cart.map(item => `- ${item.quantity || 1}x ${item.name}`).join("\n");
+  const total = cart.reduce((acc, item) => acc + item.price * (item.quantity || 1), 0);
+
+  if (total <= 0) {
+    alert("Le total ne peut pas être égal à 0$. Vérifiez les prix.");
+    return;
+  }
+
+  fetch("https://renardnotfound.alwaysdata.net/commande.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      name: name,
+      cart: cart,
+      total: total
+    })
+  })
+  .then(res => res.json())
+  .then(res => {
+    if (res.success) {
+      alert("Commande envoyée avec succès !");
+      localStorage.removeItem("cart");
+      location.reload();
+    } else {
+      alert("Erreur lors de l'envoi : " + (res.error || "Inconnue"));
     }
+  })
+  .catch(err => alert("Erreur : " + err));
+
+}
 
     renderCart();
   </script>
