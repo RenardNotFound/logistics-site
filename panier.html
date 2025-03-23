@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panier</title>
+  <link rel="stylesheet" href="panier.css">
+</head>
+<body>
+  <a href="index.html" class="back" title="Accueil">🏠</a>
+  <h1 class="title">Panier</h1>
+  <div class="cart-container" id="cart-items"></div>
+
+  <div class="total-line" id="total-display">Total : 0$</div>
+
+  <div class="name-field">
+    <label for="client-name">Nom du client :</label>
+    <input type="text" id="client-name" placeholder="Entrez votre nom...">
+  </div>
+
+  <div class="submit-container">
+    <button class="submit-btn" onclick="sendOrder()">Envoyer la commande</button>
+  </div>
+
+  <script>
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    function renderCart() {
+      const container = document.getElementById("cart-items");
+      container.innerHTML = "";
+      let totalPrice = 0;
+
+      cart.forEach((item, index) => {
+        const quantity = item.quantity || 1;
+        const total = item.price * quantity;
+        totalPrice += total;
+
+        const div = document.createElement("div");
+        div.className = "cart-item";
+        div.innerHTML = `
+          <img src="${item.img || ''}" alt="${item.name}" class="item-img">
+          <div class="item-name">${item.name}</div>
+          <div class="item-qty">
+            Quantité : <input type="number" min="1" value="${quantity}" onchange="updateQuantity(${index}, this.value)">
+          </div>
+          <div class="item-price" id="price-${index}">Prix : ${total}$</div>
+          <button class="delete-btn" onclick="deleteItem(${index})">🗑️</button>
+        `;
+        container.appendChild(div);
+      });
+
+      document.getElementById("total-display").textContent = `Total : ${totalPrice}$`;
+    }
+
+    function updateQuantity(index, value) {
+      cart[index].quantity = parseInt(value);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      renderCart();
+    }
+
+    function deleteItem(index) {
+      cart.splice(index, 1);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      renderCart();
+    }
+
+    function sendOrder() {
+      const name = document.getElementById("client-name").value.trim();
+      if (!name) return alert("Merci d'indiquer votre nom avant d'envoyer la commande.");
+
+      const formatted = cart.map(item => `- ${item.quantity || 1}x ${item.name}`).join("\n");
+      const total = cart.reduce((acc, item) => acc + item.price * (item.quantity || 1), 0);
+
+      const webhookURL = "https://discord.com/api/webhooks/1353329278087069739/zUz5A81UGb7iF2WRHbWdnPlQ-Vnh6yQMyrufullIQgUof2yL-3lBaV1gdAEDMJyhAjge"; // Remplace par le tien
+
+      fetch(webhookURL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          content: `📦 Nouvelle commande de **${name}** :\n${formatted}\n💰 Total : ${total}$`
+        })
+      })
+      .then(() => alert("Commande envoyée sur Discord !"))
+      .catch(err => alert("Erreur d'envoi : " + err));
+    }
+
+    renderCart();
+  </script>
+</body>
+</html>

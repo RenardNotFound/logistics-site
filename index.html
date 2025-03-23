@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Boutique RP</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="nav">
+    <button onclick="filterSection('mecano')" id="btn-mecano">Mécano</button>
+    <button onclick="filterSection('restaurant')" id="btn-restaurant">Restaurant</button>
+    <button onclick="filterSection('bar')" id="btn-bar">Bar</button>
+    <button onclick="filterSection('superette')" id="btn-superette">Supérette</button>
+  </div>
+
+  <div class="cart-icon" onclick="goToCart()">
+    🛒
+  </div>
+
+  <div class="search-container">
+    <input type="text" id="search-input" placeholder="Rechercher un produit..." oninput="filterProducts()">
+  </div>
+
+  <div class="products" id="product-list">
+    <!-- Les produits dynamiques seront injectés ici -->
+  </div>
+
+  <script>
+    const products = {
+      mecano: [
+        { name: "Trousse de Réparation", price: 50, img: "https://cdn-icons-png.flaticon.com/512/1046/1046756.png" },
+        { name: "Kit de Réparation Avancé", price: 50, img: "https://cdn-icons-png.flaticon.com/512/1046/1046766.png" },
+        { name: "Kit de Correctif", price: 50, img: "https://cdn-icons-png.flaticon.com/512/1046/1046775.png" },
+        { name: "Crique de Voiture", price: 50, img: "https://cdn-icons-png.flaticon.com/512/809/809957.png" },
+        { name: "Bidon de Carburant", price: 50, img: "https://cdn-icons-png.flaticon.com/512/1147/1147930.png" },
+        { name: "Démarreur", price: 50, img: "https://cdn-icons-png.flaticon.com/512/4264/4264749.png" },
+        { name: "Kit de Réparation de Pneus", price: 50, img: "https://cdn-icons-png.flaticon.com/512/590/590673.png" },
+        { name: "Radiateur", price: 50, img: "https://cdn-icons-png.flaticon.com/512/590/590690.png" },
+        { name: "Pompe à Carburant", price: 50, img: "https://cdn-icons-png.flaticon.com/512/590/590669.png" },
+        { name: "Freins", price: 50, img: "https://cdn-icons-png.flaticon.com/512/590/590675.png" },
+        { name: "Transmission", price: 50, img: "https://cdn-icons-png.flaticon.com/512/590/590692.png" },
+        { name: "Alternateur", price: 50, img: "https://cdn-icons-png.flaticon.com/512/590/590693.png" },
+        { name: "Embrayage", price: 50, img: "https://cdn-icons-png.flaticon.com/512/590/590691.png" },
+        { name: "Filtre à Huile", price: 30, img: "https://cdn-icons-png.flaticon.com/512/1046/1046760.png" },
+        { name: "Filtre à Air", price: 30, img: "https://cdn-icons-png.flaticon.com/512/1046/1046760.png" },
+        { name: "Filtre à Carburant", price: 30, img: "https://cdn-icons-png.flaticon.com/512/1046/1046760.png" },
+        { name: "Liquide de Refroidissement", price: 30, img: "https://cdn-icons-png.flaticon.com/512/1046/1046752.png" },
+        { name: "Liquide de Freins", price: 30, img: "https://cdn-icons-png.flaticon.com/512/1046/1046752.png" },
+        { name: "Liquide de Direction Assistée", price: 30, img: "https://cdn-icons-png.flaticon.com/512/1046/1046752.png" },
+        { name: "Liquide de Transmission", price: 30, img: "https://cdn-icons-png.flaticon.com/512/1046/1046752.png" },
+        { name: "Bougie", price: 30, img: "https://cdn-icons-png.flaticon.com/512/1046/1046750.png" },
+        { name: "Courroie", price: 30, img: "https://cdn-icons-png.flaticon.com/512/1046/1046750.png" },
+        { name: "Volant", price: 30, img: "https://cdn-icons-png.flaticon.com/512/1046/1046784.png" },
+        { name: "Pneu", price: 30, img: "https://cdn-icons-png.flaticon.com/512/590/590688.png" },
+        { name: "Porte", price: 20, img: "https://cdn-icons-png.flaticon.com/512/1046/1046756.png" },
+        { name: "Capot", price: 20, img: "https://cdn-icons-png.flaticon.com/512/1046/1046756.png" },
+        { name: "Coffre", price: 20, img: "https://cdn-icons-png.flaticon.com/512/1046/1046756.png" },
+        { name: "Roue", price: 20, img: "https://cdn-icons-png.flaticon.com/512/1046/1046756.png" },
+        { name: "Vitre", price: 20, img: "https://cdn-icons-png.flaticon.com/512/1046/1046756.png" },
+        { name: "Cire", price: 20, img: "https://cdn-icons-png.flaticon.com/512/1046/1046756.png" }
+      ],
+      restaurant: [
+        { name: "Biberon de Sauce Mayo", price: 10, img: "https://cdn-icons-png.flaticon.com/512/1046/1046784.png" },
+        { name: "Biberon de Sauce Ketchup", price: 10, img: "https://cdn-icons-png.flaticon.com/512/1046/1046760.png" },
+        { name: "Biberon de Sauce Poivre", price: 10, img: "https://cdn-icons-png.flaticon.com/512/590/590663.png" },
+        { name: "Biberon de Sauce Blanche", price: 10, img: "https://cdn-icons-png.flaticon.com/512/1046/1046775.png" },
+        { name: "Sauce Harissa", price: 10, img: "https://cdn-icons-png.flaticon.com/512/1046/1046756.png" },
+        { name: "Sauce Béarnaise", price: 10, img: "https://cdn-icons-png.flaticon.com/512/1046/1046766.png" },
+        { name: "Sauce Biggy Burger", price: 10, img: "https://cdn-icons-png.flaticon.com/512/877/877951.png" },
+        { name: "Sauce Aigre Douce", price: 10, img: "https://cdn-icons-png.flaticon.com/512/1046/1046752.png" },
+        { name: "Sauce Poisson", price: 10, img: "https://cdn-icons-png.flaticon.com/512/1046/1046750.png" },
+        { name: "Tabasco", price: 10, img: "https://cdn-icons-png.flaticon.com/512/1147/1147545.png" },
+        { name: "Sac de Nuggets", price: 10, img: "https://cdn-icons-png.flaticon.com/512/590/590686.png" },
+        { name: "Sac de Frites", price: 10, img: "https://cdn-icons-png.flaticon.com/512/3075/3075977.png" },
+        { name: "Sac d’Oignons Rings", price: 10, img: "https://cdn-icons-png.flaticon.com/512/590/590690.png" },
+        { name: "Sac de Tenders", price: 10, img: "https://cdn-icons-png.flaticon.com/512/590/590687.png" },
+        { name: "Pain Sandwich", price: 3, img: "https://cdn-icons-png.flaticon.com/512/590/590685.png" },
+        { name: "Pain de Mie", price: 3, img: "https://cdn-icons-png.flaticon.com/512/616/616408.png" },
+        { name: "Pain", price: 3, img: "https://cdn-icons-png.flaticon.com/512/135/135763.png" },
+        { name: "Oignon", price: 2, img: "https://cdn-icons-png.flaticon.com/512/4264/4264749.png" },
+        { name: "Salade", price: 2, img: "https://cdn-icons-png.flaticon.com/512/4264/4264783.png" },
+        { name: "Champignon", price: 2, img: "https://cdn-icons-png.flaticon.com/512/135/135646.png" },
+        { name: "Avocat", price: 2, img: "https://cdn-icons-png.flaticon.com/512/590/590673.png" },
+        { name: "Oignon Frit", price: 2, img: "https://cdn-icons-png.flaticon.com/512/4264/4264695.png" },
+        { name: "Concombre", price: 2, img: "https://cdn-icons-png.flaticon.com/512/4264/4264743.png" },
+        { name: "Pomme de Terre", price: 2, img: "https://cdn-icons-png.flaticon.com/512/590/590688.png" },
+        { name: "Carotte", price: 2, img: "https://cdn-icons-png.flaticon.com/512/135/135687.png" },
+        { name: "Piment", price: 2, img: "https://cdn-icons-png.flaticon.com/512/4264/4264725.png" },
+        { name: "Pomme", price: 2, img: "https://cdn-icons-png.flaticon.com/512/590/590685.png" },
+        { name: "Poulet", price: 2, img: "https://cdn-icons-png.flaticon.com/512/590/590695.png" },
+        { name: "Jambon", price: 2, img: "https://cdn-icons-png.flaticon.com/512/590/590672.png" },
+        { name: "Bacon", price: 2, img: "https://cdn-icons-png.flaticon.com/512/590/590675.png" },
+        { name: "Gambas", price: 2, img: "https://cdn-icons-png.flaticon.com/512/3049/3049401.png" },
+        { name: "Saucisse", price: 2, img: "https://cdn-icons-png.flaticon.com/512/590/590669.png" },
+        { name: "Chorizo", price: 2, img: "https://cdn-icons-png.flaticon.com/512/2535/2535521.png" },
+        { name: "Steak de Soja", price: 2, img: "https://cdn-icons-png.flaticon.com/512/590/590691.png" },
+        { name: "Œuf", price: 2, img: "https://cdn-icons-png.flaticon.com/512/184/184514.png" },
+        { name: "Perles", price: 2, img: "https://cdn-icons-png.flaticon.com/512/2769/2769276.png" },
+        { name: "Mozzarella", price: 2, img: "https://cdn-icons-png.flaticon.com/512/590/590693.png" },
+        { name: "Tranches de Fromage", price: 2, img: "https://cdn-icons-png.flaticon.com/512/590/590692.png" },
+        { name: "Tortilla", price: 2, img: "https://cdn-icons-png.flaticon.com/512/590/590695.png" },
+        { name: "Pâte à Lasagne", price: 2, img: "https://cdn-icons-png.flaticon.com/512/3187/3187909.png" },
+        { name: "Farine", price: 2, img: "https://cdn-icons-png.flaticon.com/512/2707/2707424.png" }
+      ],
+      bar: [
+        { name: "Liqueur de Pèche", price: 2, img: "https://cdn-icons-png.flaticon.com/512/3047/3047796.png" },
+        { name: "Jus de Pamplemousse", price: 2, img: "https://cdn-icons-png.flaticon.com/512/590/590697.png" },
+        { name: "Jus de Framboise", price: 2, img: "https://cdn-icons-png.flaticon.com/512/590/590695.png" },
+        { name: "Jus de Cranberry", price: 2, img: "https://cdn-icons-png.flaticon.com/512/590/590695.png" },
+        { name: "Jus d'Abricot", price: 2, img: "https://cdn-icons-png.flaticon.com/512/590/590697.png" },
+        { name: "Jus d'Orange", price: 2, img: "https://cdn-icons-png.flaticon.com/512/590/590697.png" },
+        { name: "Jus d'Ananas", price: 2, img: "https://cdn-icons-png.flaticon.com/512/590/590696.png" },
+        { name: "Jus de Citron", price: 2, img: "https://cdn-icons-png.flaticon.com/512/590/590694.png" },
+        { name: "Verre à Cocktail", price: 2, img: "https://cdn-icons-png.flaticon.com/512/1046/1046782.png" },
+        { name: "Feuille de Basilic", price: 2, img: "https://cdn-icons-png.flaticon.com/512/4264/4264781.png" },
+        { name: "Feuille de Menthe", price: 2, img: "https://cdn-icons-png.flaticon.com/512/4264/4264785.png" },
+        { name: "Citron", price: 2, img: "https://cdn-icons-png.flaticon.com/512/590/590694.png" },
+        { name: "Mangue", price: 2, img: "https://cdn-icons-png.flaticon.com/512/590/590696.png" },
+        { name: "Banane", price: 2, img: "https://cdn-icons-png.flaticon.com/512/590/590670.png" },
+        { name: "Junk Energy Drink", price: 2, img: "https://cdn-icons-png.flaticon.com/512/1046/1046792.png" },
+        { name: "Sirop de Grenadine", price: 2, img: "https://cdn-icons-png.flaticon.com/512/590/590697.png" },
+        { name: "Sirop de Sucre de Canne", price: 2, img: "https://cdn-icons-png.flaticon.com/512/2707/2707424.png" },
+        { name: "Sucre", price: 2, img: "https://cdn-icons-png.flaticon.com/512/4264/4264679.png" },
+        { name: "Limonade Rose", price: 2, img: "https://cdn-icons-png.flaticon.com/512/590/590695.png" }
+      ],
+      superette: [
+        { name: "Téléphone", price: 100, img: "https://cdn-icons-png.flaticon.com/512/724/724664.png" },
+        { name: "Bouteille d’Eau", price: 10, img: "https://cdn-icons-png.flaticon.com/512/1047/1047711.png" },
+        { name: "Sandwich", price: 10, img: "https://cdn-icons-png.flaticon.com/512/590/590685.png" },
+        { name: "Sac de Vêtements", price: 20, img: "https://cdn-icons-png.flaticon.com/512/891/891462.png" },
+        { name: "Détecteur de Métal", price: 60, img: "https://cdn-icons-png.flaticon.com/512/2554/2554812.png" },
+        { name: "Ticket à Gratter", price: 4, img: "https://cdn-icons-png.flaticon.com/512/3698/3698528.png" }
+      ]
+    };
+
+    let currentSection = "mecano";
+
+    function getCart() {
+      return JSON.parse(localStorage.getItem("cart")) || [];
+    }
+
+    function setCart(cart) {
+      localStorage.setItem("cart", JSON.stringify(cart));
+    }
+
+    function addToCart(name, price, img) {
+      let cart = getCart();
+      const existing = cart.find(p => p.name === name);
+      if (existing) {
+        existing.quantity += 1;
+      } else {
+        cart.push({ name, price, quantity: 1, img });
+      }
+      setCart(cart);
+      alert(`${name} ajouté au panier.`);
+    }
+
+    function filterSection(section) {
+      currentSection = section;
+      document.querySelectorAll(".nav button").forEach(btn => btn.classList.remove("active"));
+      document.getElementById(`btn-${section}`).classList.add("active");
+      document.getElementById("search-input").value = "";
+      renderProducts(products[section]);
+    }
+
+    function renderProducts(list) {
+      const container = document.getElementById("product-list");
+      container.innerHTML = "";
+      list.forEach(product => {
+        const div = document.createElement("div");
+        div.className = "product";
+        div.innerHTML = `
+          <h4>${product.name}</h4>
+          ${product.img ? `<img src="${product.img}" alt="${product.name}" />` : ''}
+          <p>${product.price}$</p>
+          <button class="add-btn" onclick='addToCart("${product.name}", ${product.price}, "${product.img || ''}")'>Ajouter au Panier</button>
+        `;
+        div.style.opacity = 0;
+        container.appendChild(div);
+        setTimeout(() => div.style.opacity = 1, 50);
+      });
+    }
+
+    function filterProducts() {
+      const search = document.getElementById("search-input").value.toLowerCase();
+      const filtered = products[currentSection].filter(product => product.name.toLowerCase().includes(search));
+      renderProducts(filtered);
+    }
+
+    function goToCart() {
+      window.location.href = "panier.html";
+    }
+
+    filterSection("mecano");
+  </script>
+</body>
+</html>

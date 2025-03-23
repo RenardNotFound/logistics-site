@@ -1,0 +1,140 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f8f8f8;
+  }
+  
+  .title {
+    text-align: center;
+    font-size: 36px;
+    margin: 20px 0;
+  }
+  
+  .back {
+    text-decoration: none;
+    color: black;
+    margin-left: 10px;
+    font-size: 16px;
+  }
+  
+  .cart-container {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+  }
+  
+  .cart-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 2px solid #ccc;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    flex-wrap: wrap;
+  }
+  
+  .item-img {
+    width: 70px;
+    height: 70px;
+    border-radius: 20px;
+    object-fit: cover;
+    border: 1px solid #ccc;
+  }
+  
+  .item-name {
+    flex: 1;
+    margin-left: 20px;
+    font-weight: bold;
+    min-width: 120px;
+  }
+  
+  .item-qty {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-right: 10px;
+  }
+  
+  .item-qty input {
+    padding: 6px 12px;
+    border-radius: 20px;
+    border: 1px solid #aaa;
+    width: 60px;
+    text-align: center;
+    font-size: 16px;
+  }
+  
+  .item-price {
+    background-color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    border: 1px solid #aaa;
+    font-size: 16px;
+    min-width: 90px;
+    text-align: center;
+    margin-right: 10px;
+  }
+  
+  .delete-btn {
+    background-color: #ff4c4c;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 18px;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .delete-btn:hover {
+    background-color: #cc0000;
+  }
+  
+  .total-line {
+    max-width: 900px;
+    margin: 30px auto 10px;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: right;
+  }
+  
+  .name-field {
+    max-width: 900px;
+    margin: 10px auto 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .name-field input {
+    padding: 10px 15px;
+    font-size: 16px;
+    border-radius: 12px;
+    border: 1px solid #ccc;
+    outline: none;
+  }
+  
+  .submit-container {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .submit-btn {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 30px;
+    background: linear-gradient(to right, #4CAF50, #66BB6A);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .submit-btn:hover {
+    background: linear-gradient(to right, #388E3C, #43A047);
+  }
+  
