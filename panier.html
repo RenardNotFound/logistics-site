@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Panier</title>
   <link rel="stylesheet" href="panier.css">
 </head>
+
 <body>
   <a href="index.html" class="back" title="Accueil">🏠</a>
   <h1 class="title">Panier</h1>
@@ -65,57 +67,25 @@
     }
 
     function sendOrder() {
-  const name = document.getElementById("client-name").value.trim();
-  if (!name) {
-    alert("Merci d'indiquer votre nom avant d'envoyer la commande.");
-    return;
-  }
-
-  if (cart.length === 0) {
-    alert("Votre panier est vide !");
-    return;
-  }
-
-  const hasInvalidQuantity = cart.some(item => !item.quantity || item.quantity <= 0);
-  if (hasInvalidQuantity) {
-    alert("Toutes les quantités doivent être supérieures à zéro.");
-    return;
-  }
-
-  const formatted = cart.map(item => `- ${item.quantity || 1}x ${item.name}`).join("\n");
-  const total = cart.reduce((acc, item) => acc + item.price * (item.quantity || 1), 0);
-
-  if (total <= 0) {
-    alert("Le total ne peut pas être égal à 0$. Vérifiez les prix.");
-    return;
-  }
-
-  fetch("https://renardnotfound.alwaysdata.net/commande.php", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      name: name,
-      cart: cart,
-      total: total
-    })
-  })
-  .then(res => res.json())
-  .then(res => {
-    if (res.success) {
-      alert("Commande envoyée avec succès !");
-      localStorage.removeItem("cart");
-      location.reload();
-    } else {
-      alert("Erreur lors de l'envoi : " + (res.error || "Inconnue"));
+      fetch("https://renardnotfound.alwaysdata.net/commande.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: "Test",
+          cart: [
+            { name: "Pizza", quantity: 2 }
+          ],
+          total: 20
+        })
+      })
+        .then(res => res.json())
+        .then(console.log)
+        .catch(console.error);
     }
-  })
-  .catch(err => alert("Erreur : " + err));
 
-}
 
     renderCart();
   </script>
 </body>
+
 </html>
