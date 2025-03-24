@@ -227,9 +227,12 @@
 
     // Initialisation
     document.addEventListener("DOMContentLoaded", () => {
-      filterSection("mecano");
+      const urlParams = new URLSearchParams(window.location.search);
+      const section = urlParams.get("section") || "mecano";
+      filterSection(section);
       updateCartCount();
     });
+
 
   </script>
 </body>
