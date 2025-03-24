@@ -43,6 +43,12 @@ body {
 
 .product {
   width: 180px;
+  height: 300px;
+  /* ← fixe la hauteur */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  /* espace entre haut (titre/image) et bas (bouton) */
   background-color: white;
   border: 1px solid #ddd;
   border-radius: 20px;
@@ -50,8 +56,16 @@ body {
   text-align: center;
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  opacity: 1;
 }
+
+.product img {
+  max-width: 90px;
+  max-height: 90px; /* ← ajoute cette ligne */
+  margin: 10px auto;
+  display: block;
+  object-fit: contain; /* pour éviter la déformation */
+}
+
 
 .product:hover {
   transform: scale(1.04);
