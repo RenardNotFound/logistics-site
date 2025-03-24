@@ -226,8 +226,10 @@
     }
 
     // Initialisation
-    filterSection("mecano");
-    updateCartCount();
+    document.addEventListener("DOMContentLoaded", () => {
+      filterSection("mecano");
+      updateCartCount();
+    });
 
   </script>
 </body>
