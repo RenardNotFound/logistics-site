@@ -138,11 +138,20 @@ body {
   top: 20px;
   left: 20px;
   font-size: 22px;
-  background: none;
-  border: none;
+  background: #ffffff;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  padding: 8px 10px;
   cursor: pointer;
-  z-index: 1002;
+  z-index: 9999;
+  transition: background 0.3s, transform 0.2s;
 }
+
+.theme-toggle:hover {
+  transform: scale(1.15);
+  background: #f0f0f0;
+}
+
 
 /* Mode sombre */
 body.dark {
