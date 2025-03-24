@@ -111,6 +111,11 @@
       const formatted = cart.map(item => `- ${item.quantity || 1}x ${item.name}`).join("\n");
       const total = cart.reduce((acc, item) => acc + item.price * (item.quantity || 1), 0);
 
+      console.log("Webhook utilisé :", webhookURL);
+      console.log("Message envoyé :");
+      console.log(`📦 Nouvelle commande pour **${name}** :\n${formatted}\n💰 Total : ${total}$`);
+
+
       fetch(webhookURL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
