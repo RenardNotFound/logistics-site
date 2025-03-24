@@ -138,3 +138,38 @@ body {
     background: linear-gradient(to right, #388E3C, #43A047);
   }
   
+
+  /* Style du label et conteneur */
+.name-field {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 8px;
+}
+
+/* Style du select */
+#client-name {
+  width: 100%;
+  max-width: 300px;
+  padding: 10px 12px;
+  font-size: 16px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  color: #333;
+  transition: all 0.3s ease;
+  appearance: none; /* enlève la flèche par défaut */
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath fill='%23333' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 12px;
+}
+
+/* Hover/focus */
+#client-name:hover,
+#client-name:focus {
+  border-color: #4caf50;
+  background-color: #fff;
+  outline: none;
+}
