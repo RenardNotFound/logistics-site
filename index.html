@@ -17,6 +17,8 @@
     <button onclick="filterSection('superette')" id="btn-superette">Supérette</button>
   </div>
 
+  <button id="theme-toggle" class="theme-toggle">🌙</button>
+
   <div class="cart-icon" onclick="goToCart()">
     🛒
     <span id="cart-count">0</span>
@@ -224,6 +226,22 @@
     function goToCart() {
       window.location.href = "panier.html";
     }
+
+    const themeBtn = document.getElementById("theme-toggle");
+    const currentTheme = localStorage.getItem("theme");
+
+    if (currentTheme === "dark") {
+      document.body.classList.add("dark");
+      themeBtn.textContent = "🌞";
+    }
+
+    themeBtn.addEventListener("click", () => {
+      document.body.classList.toggle("dark");
+      const isDark = document.body.classList.contains("dark");
+      themeBtn.textContent = isDark ? "🌞" : "🌙";
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+    });
+
 
     // Initialisation
     filterSection("mecano");

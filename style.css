@@ -132,6 +132,50 @@ body {
   display: none;
 }
 
+/* Bouton thème */
+.theme-toggle {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  font-size: 22px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1002;
+}
+
+/* Mode sombre */
+body.dark {
+  background-color: #1e1e1e;
+  color: #f0f0f0;
+}
+
+body.dark .product {
+  background-color: #2a2a2a;
+  border-color: #444;
+}
+
+body.dark .nav button {
+  background-color: #333;
+  color: white;
+  border-color: #666;
+}
+
+body.dark .nav button.active {
+  background-color: #4caf50;
+  color: white;
+}
+
+body.dark .add-btn {
+  background: linear-gradient(to right, #66bb6a, #4caf50);
+}
+
+body.dark #search-input {
+  background-color: #2a2a2a;
+  color: white;
+  border-color: #555;
+}
+
 
 @media screen and (max-width: 600px) {
   .products {
