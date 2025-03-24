@@ -69,19 +69,17 @@
     function sendOrder() {
       const name = document.getElementById("client-name").value.trim();
       if (!name) {
-        alert("Merci d'indiquer votre nom avant d'envoyer la commande.");
         return;
       }
 
       if (cart.length === 0) {
-        alert("Votre panier est vide !");
         return;
       }
 
       const formatted = cart.map(item => `- ${item.quantity || 1}x ${item.name}`).join("\n");
       const total = cart.reduce((acc, item) => acc + item.price * (item.quantity || 1), 0);
 
-      const webhookURL = "https://discord.com/api/webhooks/1353329278087069739/zUz5A81UGb7iF2WRHbWdnPlQ-Vnh6yQMyrufullIQgUof2yL-3lBaV1gdAEDMJyhAjge";
+      const webhookURL = "https://discord.com/api/webhooks/TON_WEBHOOK_ICI"; // Remplace par ton webhook
 
       fetch(webhookURL, {
         method: "POST",
@@ -91,14 +89,10 @@
         })
       })
         .then(() => {
-          alert("Commande envoyée sur Discord !");
           localStorage.removeItem("cart");
           location.reload();
         })
-        .catch(err => {
-          console.error(err);
-          alert("Erreur d'envoi : " + err);
-        });
+        .catch(err => console.error("Erreur d'envoi : ", err));
     }
 
     renderCart();

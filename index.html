@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Boutique RP</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
   <div class="nav">
     <button onclick="filterSection('mecano')" id="btn-mecano">Mécano</button>
@@ -153,8 +155,9 @@
         cart.push({ name, price, quantity: 1, img });
       }
       setCart(cart);
-      alert(`${name} ajouté au panier.`);
+      // Plus de pop-up ici 😎
     }
+
 
     function filterSection(section) {
       currentSection = section;
@@ -195,4 +198,5 @@
     filterSection("mecano");
   </script>
 </body>
+
 </html>
