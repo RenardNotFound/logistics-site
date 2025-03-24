@@ -17,9 +17,35 @@
   <div class="total-line" id="total-display">Total : 0$</div>
 
   <div class="name-field">
-    <label for="client-name">Nom du client :</label>
-    <input type="text" id="client-name" placeholder="Entrez votre nom...">
+    <label for="client-name">Entreprise :</label>
+    <select id="client-name">
+      <option value="">-- Choisis ton entreprise --</option>
+      <option value="Auto">Auto-Exotic</option>
+      <option value="LS">LS Custom</option>
+      <option value="Larrys">Larry's</option>
+      <option value="Beekers">Beekers</option>
+      <option value="UPN">Upn-Atom</option>
+      <option value="Hornys">Horny's</option>
+      <option value="BS">Burger Shot</option>
+      <option value="Bayview">Bayview Lodge</option>
+      <option value="Dikinbaus">Dikinbaus Club</option>
+      <option value="Pops">Pops Diner</option>
+      <option value="Rex">Rex Diner</option>
+      <option value="Hookies">Hookies</option>
+      <option value="Tequila">Tequila</option>
+      <option value="Blackwood">Blackwood</option>
+      <option value="Yellow">Yellow Jack</option>
+      <option value="Bahamas">Bahamas</option>
+      <option value="Poncho">Poncho</option>
+      <option value="Eclipse">Eclipse</option>
+      <option value="Club77">Club 77</option>
+      <option value="Hookah">Hookah Lounge</option>
+      <option value="Unicorn">Unicorn</option>
+      <option value="LTDSeoul">LTD Little Seoul</option>
+      <option value="LTDMirror">LTD Mirror Park</option>
+    </select>
   </div>
+
 
   <div class="submit-container">
     <button class="submit-btn" onclick="sendOrder()">Envoyer la commande</button>
@@ -68,25 +94,57 @@
     }
 
     function sendOrder() {
-      const name = document.getElementById("client-name").value.trim();
+      const name = document.getElementById("client-name").value;
       if (!name) {
+        alert("Sélectionne une entreprise.");
         return;
       }
 
       if (cart.length === 0) {
+        alert("Le panier est vide.");
+        return;
+      }
+
+      const webhooks = {
+        Auto: "https://discord.com/api/webhooks/WEBHOOK_AUTO",
+        LS: "https://discord.com/api/webhooks/1353651700636061696/q_ug2ePcDnv6EKbJTM21Q0HrQZq7AC5D44nhY9rCoAy9nO_4db2le5qXXfDP_uzCDCfP",
+        Larrys: "https://discord.com/api/webhooks/WEBHOOK_LARRYS",
+        Beekers: "https://discord.com/api/webhooks/WEBHOOK_BEEKERS",
+        UPN: "https://discord.com/api/webhooks/WEBHOOK_UPN",
+        Hornys: "https://discord.com/api/webhooks/WEBHOOK_HORNYS",
+        BS: "https://discord.com/api/webhooks/WEBHOOK_BS",
+        Bayview: "https://discord.com/api/webhooks/1353651891224973373/hVVYZ2yB4mSbrzTtn2a-cSYvf4zJW_1fL5RnIu_8pRFWMo2KR7Ol5xhWMa4shHslzYac",
+        Dikinbaus: "https://discord.com/api/webhooks/WEBHOOK_DIKINBAUS",
+        Pops: "https://discord.com/api/webhooks/WEBHOOK_POPS",
+        Rex: "https://discord.com/api/webhooks/WEBHOOK_REX",
+        Hookies: "https://discord.com/api/webhooks/WEBHOOK_HOOKIES",
+        Tequila: "https://discord.com/api/webhooks/WEBHOOK_TEQUILA",
+        Blackwood: "https://discord.com/api/webhooks/WEBHOOK_BLACKWOOD",
+        Yellow: "https://discord.com/api/webhooks/WEBHOOK_YELLOW",
+        Bahamas: "https://discord.com/api/webhooks/WEBHOOK_BAHAMAS",
+        Poncho: "https://discord.com/api/webhooks/WEBHOOK_PONCHO",
+        Eclipse: "https://discord.com/api/webhooks/WEBHOOK_ECLIPSE",
+        Club77: "https://discord.com/api/webhooks/WEBHOOK_CLUB77",
+        Hookah: "https://discord.com/api/webhooks/WEBHOOK_HOOKAH",
+        Unicorn: "https://discord.com/api/webhooks/WEBHOOK_UNICORN",
+        LTDSeoul: "https://discord.com/api/webhooks/WEBHOOK_LTDSEOUL",
+        LTDMirror: "https://discord.com/api/webhooks/WEBHOOK_LTDMIRROR"
+      };
+
+      const webhookURL = webhooks[name];
+      if (!webhookURL) {
+        alert("Aucun webhook défini pour cette entreprise.");
         return;
       }
 
       const formatted = cart.map(item => `- ${item.quantity || 1}x ${item.name}`).join("\n");
       const total = cart.reduce((acc, item) => acc + item.price * (item.quantity || 1), 0);
 
-      const webhookURL = "https://discord.com/api/webhooks/TON_WEBHOOK_ICI"; // Remplace par ton webhook
-
       fetch(webhookURL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          content: `📦 Nouvelle commande de **${name}** :\n${formatted}\n💰 Total : ${total}$`
+          content: `📦 Nouvelle commande pour **${name}** :\n${formatted}\n💰 Total : ${total}$`
         })
       })
         .then(() => {
