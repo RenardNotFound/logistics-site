@@ -58,11 +58,14 @@
       const container = document.getElementById("cart-items");
       container.innerHTML = "";
       let totalPrice = 0;
+      let totalWeight = 0;
 
       cart.forEach((item, index) => {
         const quantity = item.quantity || 1;
         const total = item.price * quantity;
         totalPrice += total;
+        const weight = parseFloat(item.weight) || 0;
+        totalWeight += weight * quantity;
 
         const div = document.createElement("div");
         div.className = "cart-item";
@@ -78,7 +81,8 @@
         container.appendChild(div);
       });
 
-      document.getElementById("total-display").textContent = `Total : ${totalPrice}$`;
+      document.getElementById("total-display").textContent = `Total : ${totalPrice}$ — ${totalWeight.toFixed(2)}kg`;
+
     }
 
     function updateQuantity(index, value) {
@@ -108,14 +112,23 @@
       const webhookURL = "https://discord.com/api/webhooks/1353661150327345174/09T5Ujcrh7sPeXgsjyS7Ax1SKafXDDzwJoEgydQNZ3C1zG3Hofjceokxjcl0SgpJcM5U";
 
 
-      const formatted = cart.map(item => `- ${item.quantity || 1}x ${item.name}`).join("\n");
+      const formatted = cart.map(item => {
+        const qty = item.quantity || 1;
+        const weight = parseFloat(item.weight) || 0;
+        const totalWeight = (weight * qty).toFixed(2);
+        const unit = item.unit || 'kg';
+        return `- ${qty}x ${item.name} (${totalWeight}${unit})`;
+      }).join("\n");
+
       const total = cart.reduce((acc, item) => acc + item.price * (item.quantity || 1), 0);
+      const totalWeight = cart.reduce((acc, item) => acc + (parseFloat(item.weight) || 0) * (item.quantity || 1), 0);
+
 
       fetch(webhookURL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          content: `📦 Nouvelle commande pour **${name}** :\n${formatted}\n💰 Total : ${total}$`
+          content: `📦 Nouvelle commande pour **${name}** :\n${formatted}\n💰 Total : ${total}$\n⚖️ Poids total : ${totalWeight.toFixed(2)}kg`
         })
       })
         .then(() => {
