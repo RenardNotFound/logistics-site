@@ -21,6 +21,10 @@
     <span id="cart-count">0</span>
   </div>
 
+  <label class="switch">
+    <input type="checkbox" id="dark-toggle">
+    <span class="slider round"></span>
+  </label>
 
   <div id="notif"
     style="display: none; position: fixed; top: 20px; right: 120px; background: #4caf50; color: white; padding: 10px 20px; border-radius: 8px; z-index: 1000;">
@@ -41,101 +45,101 @@
     const products = {
       mecano: [
         { name: "Trousse de Réparation", price: 50, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/1046/1046756.png" },
-        { name: "Kit de Réparation Avancé", price: 50, weight: 0.4,unit: "g", img: "https://cdn-icons-png.flaticon.com/512/1046/1046766.png" },
-        { name: "Kit de Correctif", price: 50, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/1046/1046775.png" },
-        { name: "Crique de Voiture", price: 50, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/809/809957.png" },
-        { name: "Bidon de Carburant", price: 50, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/1147/1147930.png" },
-        { name: "Démarreur", price: 50, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/4264/4264749.png" },
-        { name: "Kit de Réparation de Pneus", price: 50, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/590/590673.png" },
-        { name: "Radiateur", price: 50, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/590/590690.png" },
-        { name: "Pompe à Carburant", price: 50, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/590/590669.png" },
-        { name: "Freins", price: 50, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/590/590675.png" },
-        { name: "Transmission", price: 50, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/590/590692.png" },
-        { name: "Alternateur", price: 50, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/590/590693.png" },
-        { name: "Embrayage", price: 50, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/590/590691.png" },
-        { name: "Filtre à Huile", price: 30, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/1046/1046760.png" },
-        { name: "Filtre à Air", price: 30, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/1046/1046760.png" },
-        { name: "Filtre à Carburant", price: 30, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/1046/1046760.png" },
-        { name: "Liquide de Refroidissement", price: 30, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/1046/1046752.png" },
-        { name: "Liquide de Freins", price: 30, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/1046/1046752.png" },
-        { name: "Liquide de Direction Assistée", price: 30, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/1046/1046752.png" },
-        { name: "Liquide de Transmission", price: 30, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/1046/1046752.png" },
-        { name: "Bougie", price: 30, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/1046/1046750.png" },
-        { name: "Courroie", price: 30, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/1046/1046750.png" },
-        { name: "Volant", price: 30, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/1046/1046784.png" },
-        { name: "Pneu", price: 30, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/590/590688.png" },
-        { name: "Porte", price: 20, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/1046/1046756.png" },
-        { name: "Capot", price: 20, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/1046/1046756.png" },
-        { name: "Coffre", price: 20, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/1046/1046756.png" },
-        { name: "Roue", price: 20, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/1046/1046756.png" },
-        { name: "Vitre", price: 20, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/1046/1046756.png" },
-        { name: "Cire", price: 20, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/1046/1046756.png" }
+        { name: "Kit de Réparation Avancé", price: 50, weight: 0.4, unit: "g", img: "https://cdn-icons-png.flaticon.com/512/1046/1046766.png" },
+        { name: "Kit de Correctif", price: 50, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/1046/1046775.png" },
+        { name: "Crique de Voiture", price: 50, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/809/809957.png" },
+        { name: "Bidon de Carburant", price: 50, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/1147/1147930.png" },
+        { name: "Démarreur", price: 50, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/4264/4264749.png" },
+        { name: "Kit de Réparation de Pneus", price: 50, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/590/590673.png" },
+        { name: "Radiateur", price: 50, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/590/590690.png" },
+        { name: "Pompe à Carburant", price: 50, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/590/590669.png" },
+        { name: "Freins", price: 50, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/590/590675.png" },
+        { name: "Transmission", price: 50, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/590/590692.png" },
+        { name: "Alternateur", price: 50, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/590/590693.png" },
+        { name: "Embrayage", price: 50, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/590/590691.png" },
+        { name: "Filtre à Huile", price: 30, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/1046/1046760.png" },
+        { name: "Filtre à Air", price: 30, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/1046/1046760.png" },
+        { name: "Filtre à Carburant", price: 30, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/1046/1046760.png" },
+        { name: "Liquide de Refroidissement", price: 30, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/1046/1046752.png" },
+        { name: "Liquide de Freins", price: 30, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/1046/1046752.png" },
+        { name: "Liquide de Direction Assistée", price: 30, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/1046/1046752.png" },
+        { name: "Liquide de Transmission", price: 30, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/1046/1046752.png" },
+        { name: "Bougie", price: 30, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/1046/1046750.png" },
+        { name: "Courroie", price: 30, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/1046/1046750.png" },
+        { name: "Volant", price: 30, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/1046/1046784.png" },
+        { name: "Pneu", price: 30, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/590/590688.png" },
+        { name: "Porte", price: 20, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/1046/1046756.png" },
+        { name: "Capot", price: 20, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/1046/1046756.png" },
+        { name: "Coffre", price: 20, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/1046/1046756.png" },
+        { name: "Roue", price: 20, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/1046/1046756.png" },
+        { name: "Vitre", price: 20, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/1046/1046756.png" },
+        { name: "Cire", price: 20, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/1046/1046756.png" }
       ],
       restaurant: [
-        { name: "Biberon de Sauce Mayo", price: 10, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/1046/1046784.png" },
-        { name: "Biberon de Sauce Ketchup", price: 10, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/1046/1046760.png" },
-        { name: "Biberon de Sauce Poivre", price: 10, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/590/590663.png" },
-        { name: "Biberon de Sauce Blanche", price: 10, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/1046/1046775.png" },
-        { name: "Sauce Harissa", price: 10, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/1046/1046756.png" },
-        { name: "Sauce Béarnaise", price: 10, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/1046/1046766.png" },
-        { name: "Sauce Biggy Burger", price: 10, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/877/877951.png" },
-        { name: "Sauce Aigre Douce", price: 10, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/1046/1046752.png" },
-        { name: "Sauce Poisson", price: 10, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/1046/1046750.png" },
-        { name: "Tabasco", price: 10, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/1147/1147545.png" },
-        { name: "Sac de Nuggets", price: 10, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/590/590686.png" },
-        { name: "Sac de Frites", price: 10, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/3075/3075977.png" },
-        { name: "Sac d’Oignons Rings", price: 10, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/590/590690.png" },
-        { name: "Sac de Tenders", price: 10, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/590/590687.png" },
-        { name: "Pain Sandwich", price: 3, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/590/590685.png" },
-        { name: "Pain de Mie", price: 3, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/616/616408.png" },
-        { name: "Pain", price: 3, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/135/135763.png" },
-        { name: "Oignon", price: 2, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/4264/4264749.png" },
-        { name: "Salade", price: 2, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/4264/4264783.png" },
-        { name: "Champignon", price: 2, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/135/135646.png" },
-        { name: "Avocat", price: 2, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/590/590673.png" },
-        { name: "Oignon Frit", price: 2, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/4264/4264695.png" },
-        { name: "Concombre", price: 2, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/4264/4264743.png" },
-        { name: "Pomme de Terre", price: 2, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/590/590688.png" },
-        { name: "Carotte", price: 2, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/135/135687.png" },
-        { name: "Piment", price: 2, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/4264/4264725.png" },
-        { name: "Pomme", price: 2, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/590/590685.png" },
-        { name: "Poulet", price: 2, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/590/590695.png" },
-        { name: "Jambon", price: 2, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/590/590672.png" },
-        { name: "Bacon", price: 2, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/590/590675.png" },
-        { name: "Gambas", price: 2, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/3049/3049401.png" },
-        { name: "Saucisse", price: 2, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/590/590669.png" },
-        { name: "Chorizo", price: 2, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/2535/2535521.png" },
-        { name: "Steak de Soja", price: 2, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/590/590691.png" },
-        { name: "Oeuf", price: 2, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/184/184514.png" },
-        { name: "Perles", price: 2, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/2769/2769276.png" },
-        { name: "Mozzarella", price: 2, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/590/590693.png" },
-        { name: "Tranches de Fromage", price: 2, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/590/590692.png" },
-        { name: "Tortilla", price: 2, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/590/590695.png" },
-        { name: "Pâte à Lasagne", price: 2, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/3187/3187909.png" },
-        { name: "Farine", price: 2, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/2707/2707424.png" },
-        { name: "Crème Anglaise", price: 2, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/2707/2707424.png" },
-        { name: "Chocolat", price: 2, weight: 1.0,unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/2707/2707424.png" }
+        { name: "Biberon de Sauce Mayo", price: 10, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/1046/1046784.png" },
+        { name: "Biberon de Sauce Ketchup", price: 10, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/1046/1046760.png" },
+        { name: "Biberon de Sauce Poivre", price: 10, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/590/590663.png" },
+        { name: "Biberon de Sauce Blanche", price: 10, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/1046/1046775.png" },
+        { name: "Sauce Harissa", price: 10, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/1046/1046756.png" },
+        { name: "Sauce Béarnaise", price: 10, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/1046/1046766.png" },
+        { name: "Sauce Biggy Burger", price: 10, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/877/877951.png" },
+        { name: "Sauce Aigre Douce", price: 10, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/1046/1046752.png" },
+        { name: "Sauce Poisson", price: 10, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/1046/1046750.png" },
+        { name: "Tabasco", price: 10, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/1147/1147545.png" },
+        { name: "Sac de Nuggets", price: 10, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/590/590686.png" },
+        { name: "Sac de Frites", price: 10, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/3075/3075977.png" },
+        { name: "Sac d’Oignons Rings", price: 10, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/590/590690.png" },
+        { name: "Sac de Tenders", price: 10, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/590/590687.png" },
+        { name: "Pain Sandwich", price: 3, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/590/590685.png" },
+        { name: "Pain de Mie", price: 3, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/616/616408.png" },
+        { name: "Pain", price: 3, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/135/135763.png" },
+        { name: "Oignon", price: 2, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/4264/4264749.png" },
+        { name: "Salade", price: 2, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/4264/4264783.png" },
+        { name: "Champignon", price: 2, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/135/135646.png" },
+        { name: "Avocat", price: 2, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/590/590673.png" },
+        { name: "Oignon Frit", price: 2, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/4264/4264695.png" },
+        { name: "Concombre", price: 2, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/4264/4264743.png" },
+        { name: "Pomme de Terre", price: 2, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/590/590688.png" },
+        { name: "Carotte", price: 2, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/135/135687.png" },
+        { name: "Piment", price: 2, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/4264/4264725.png" },
+        { name: "Pomme", price: 2, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/590/590685.png" },
+        { name: "Poulet", price: 2, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/590/590695.png" },
+        { name: "Jambon", price: 2, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/590/590672.png" },
+        { name: "Bacon", price: 2, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/590/590675.png" },
+        { name: "Gambas", price: 2, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/3049/3049401.png" },
+        { name: "Saucisse", price: 2, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/590/590669.png" },
+        { name: "Chorizo", price: 2, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/2535/2535521.png" },
+        { name: "Steak de Soja", price: 2, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/590/590691.png" },
+        { name: "Oeuf", price: 2, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/184/184514.png" },
+        { name: "Perles", price: 2, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/2769/2769276.png" },
+        { name: "Mozzarella", price: 2, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/590/590693.png" },
+        { name: "Tranches de Fromage", price: 2, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/590/590692.png" },
+        { name: "Tortilla", price: 2, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/590/590695.png" },
+        { name: "Pâte à Lasagne", price: 2, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/3187/3187909.png" },
+        { name: "Farine", price: 2, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/2707/2707424.png" },
+        { name: "Crème Anglaise", price: 2, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/2707/2707424.png" },
+        { name: "Chocolat", price: 2, weight: 1.0, unit: "kg", img: "https://cdn-icons-png.flaticon.com/512/2707/2707424.png" }
       ],
       bar: [
-        { name: "Liqueur de Pèche", price: 2, weight: 1.0,unit: "kg", img: "images/bar/peche.png" },
-        { name: "Jus de Pamplemousse", price: 2, weight: 1.0,unit: "kg", img: "images/bar/pamplemousse.png" },
-        { name: "Jus de Framboise", price: 2, weight: 1.0,unit: "kg", img: "images/bar/framboise.png" },
-        { name: "Jus de Cranberry", price: 2, weight: 1.0,unit: "kg", img: "images/bar/cranberry.png" },
-        { name: "Jus d'Abricot", price: 2, weight: 1.0,unit: "kg", img: "images/bar/abricot.png" },
-        { name: "Jus d'Orange", price: 2, weight: 1.0,unit: "kg", img: "images/bar/orange.png" },
-        { name: "Jus d'Ananas", price: 2, weight: 1.0,unit: "kg", img: "images/bar/ananas.png" },
-        { name: "Jus de Citron", price: 2, weight: 1.0,unit: "kg", img: "images/bar/citron.png" },
-        { name: "Verre à Cocktail", price: 2, weight: 1.0,unit: "kg", img: "images/bar/verre_cocktail.png" },
-        { name: "Feuille de Basilic", price: 2, weight: 1.0,unit: "kg", img: "images/bar/feuille_basilic.png" },
-        { name: "Feuille de Menthe", price: 2, weight: 1.0,unit: "kg", img: "images/bar/feuille_menthe.png" },
-        { name: "Citron", price: 2, weight: 1.0,unit: "kg", img: "images/bar/citron_entier.png" },
-        { name: "Mangue", price: 2, weight: 1.0,unit: "kg", img: "images/bar/mangue.png" },
-        { name: "Banane", price: 2, weight: 1.0,unit: "kg", img: "images/bar/banane.png" },
-        { name: "Junk Energy Drink", price: 2, weight: 1.0,unit: "kg", img: "images/bar/energy_drink.png" },
-        { name: "Sirop de Grenadine", price: 2, weight: 1.0,unit: "kg", img: "images/bar/grenadine.png" },
-        { name: "Sirop de Sucre de Canne", price: 2, weight: 1.0,unit: "kg", img: "images/bar/sucre_canne.png" },
-        { name: "Sucre", price: 2, weight: 1.0,unit: "kg", img: "images/bar/sucre.png" },
-        { name: "Limonade Rose", price: 2, weight: 1.0,unit: "kg", img: "images/bar/limonade_rose.png" }
+        { name: "Liqueur de Pèche", price: 2, weight: 1.0, unit: "kg", img: "images/bar/peche.png" },
+        { name: "Jus de Pamplemousse", price: 2, weight: 1.0, unit: "kg", img: "images/bar/pamplemousse.png" },
+        { name: "Jus de Framboise", price: 2, weight: 1.0, unit: "kg", img: "images/bar/framboise.png" },
+        { name: "Jus de Cranberry", price: 2, weight: 1.0, unit: "kg", img: "images/bar/cranberry.png" },
+        { name: "Jus d'Abricot", price: 2, weight: 1.0, unit: "kg", img: "images/bar/abricot.png" },
+        { name: "Jus d'Orange", price: 2, weight: 1.0, unit: "kg", img: "images/bar/orange.png" },
+        { name: "Jus d'Ananas", price: 2, weight: 1.0, unit: "kg", img: "images/bar/ananas.png" },
+        { name: "Jus de Citron", price: 2, weight: 1.0, unit: "kg", img: "images/bar/citron.png" },
+        { name: "Verre à Cocktail", price: 2, weight: 1.0, unit: "kg", img: "images/bar/verre_cocktail.png" },
+        { name: "Feuille de Basilic", price: 2, weight: 1.0, unit: "kg", img: "images/bar/feuille_basilic.png" },
+        { name: "Feuille de Menthe", price: 2, weight: 1.0, unit: "kg", img: "images/bar/feuille_menthe.png" },
+        { name: "Citron", price: 2, weight: 1.0, unit: "kg", img: "images/bar/citron_entier.png" },
+        { name: "Mangue", price: 2, weight: 1.0, unit: "kg", img: "images/bar/mangue.png" },
+        { name: "Banane", price: 2, weight: 1.0, unit: "kg", img: "images/bar/banane.png" },
+        { name: "Junk Energy Drink", price: 2, weight: 1.0, unit: "kg", img: "images/bar/energy_drink.png" },
+        { name: "Sirop de Grenadine", price: 2, weight: 1.0, unit: "kg", img: "images/bar/grenadine.png" },
+        { name: "Sirop de Sucre de Canne", price: 2, weight: 1.0, unit: "kg", img: "images/bar/sucre_canne.png" },
+        { name: "Sucre", price: 2, weight: 1.0, unit: "kg", img: "images/bar/sucre.png" },
+        { name: "Limonade Rose", price: 2, weight: 1.0, unit: "kg", img: "images/bar/limonade_rose.png" }
       ],
     };
 
@@ -228,6 +232,21 @@
       const section = urlParams.get("section") || "mecano";
       filterSection(section);
       updateCartCount();
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const toggle = document.getElementById("dark-toggle");
+
+      // Active le dark mode si déjà activé précédemment
+      if (localStorage.getItem("darkMode") === "true") {
+        document.body.classList.add("dark-mode");
+        toggle.checked = true;
+      }
+
+      toggle.addEventListener("change", () => {
+        document.body.classList.toggle("dark-mode");
+        localStorage.setItem("darkMode", toggle.checked);
+      });
     });
 
 

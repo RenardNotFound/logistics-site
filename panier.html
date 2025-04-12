@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Panier</title>
   <link rel="stylesheet" href="panier.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 
 <body>
@@ -15,6 +16,11 @@
   <div class="cart-container" id="cart-items"></div>
 
   <div class="total-line" id="total-display">Total : 0$</div>
+
+  <label class="switch">
+    <input type="checkbox" id="dark-toggle">
+    <span class="slider round"></span>
+  </label>
 
   <div class="name-field">
     <label for="client-name">Entreprise :</label>
@@ -39,9 +45,26 @@
 
   <div class="submit-container">
     <button class="submit-btn" onclick="sendOrder()">Envoyer la commande</button>
+    <button class="submit-btn" onclick="generateAndSendPDF()">Recevoir une facture</button>
   </div>
 
   <script>
+
+    const webhooks = {
+      "Auto": "",
+      "LS": "https://discord.com/api/webhooks/1360701535251595404/VhOK_R8_95I3cid0sQfmoIvLL2NzSLjOxPQXstj-pqrSZDWmVkfWmGWskxU-2PUR-Fvg",
+      "Als": "https://discord.com/api/webhooks/WEBHOOK_ALS",
+      "CayoMech": "",
+      "BS": "https://discord.com/api/webhooks/WEBHOOK_BS",
+      "Rex": "",
+      "AlDentes": "https://discord.com/api/webhooks/WEBHOOK_ALDENTES",
+      "LaLinterna": "https://discord.com/api/webhooks/WEBHOOK_LINTERNA",
+      "Tequila": "https://discord.com/api/webhooks/WEBHOOK_TEQUILA",
+      "Club77": "",
+      "Unicorn": "https://discord.com/api/webhooks/WEBHOOK_UNICORN",
+      "HenHouse": ""
+    };
+
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
     function renderCart() {
@@ -129,6 +152,137 @@
     }
 
     renderCart();
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const toggle = document.getElementById("dark-toggle");
+
+      // Active le dark mode si déjà activé précédemment
+      if (localStorage.getItem("darkMode") === "true") {
+        document.body.classList.add("dark-mode");
+        toggle.checked = true;
+      }
+
+      toggle.addEventListener("change", () => {
+        document.body.classList.toggle("dark-mode");
+        localStorage.setItem("darkMode", toggle.checked);
+      });
+    });
+
+    function loadImageAsBase64(url) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        fetch(url)
+          .then(res => res.blob())
+          .then(blob => {
+            reader.onloadend = () => resolve(reader.result);
+            reader.onerror = reject;
+            reader.readAsDataURL(blob);
+          })
+          .catch(reject);
+      });
+    }
+
+    async function loadImageAsBase64(url) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        fetch(url)
+          .then(res => res.blob())
+          .then(blob => {
+            reader.onloadend = () => resolve(reader.result);
+            reader.onerror = reject;
+            reader.readAsDataURL(blob);
+          })
+          .catch(reject);
+      });
+    }
+
+    async function generateAndSendPDF() {
+      const name = document.getElementById("client-name").value || "Inconnu";
+      if (!name) return alert("Sélectionne une entreprise.");
+      if (cart.length === 0) return alert("Le panier est vide.");
+
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+      doc.setFont("helvetica");
+
+      // Logo
+      const logo = await loadImageAsBase64("./images/logo.png");
+      doc.addImage(logo, 'PNG', 150, 10, 40, 15);
+
+      // Entête
+      const date = new Date().toLocaleString();
+      const invoiceNumber = Math.floor(Math.random() * 90000 + 10000);
+      let y = 30;
+
+      doc.setFontSize(20);
+      doc.text("FACTURE", 105, y, null, null, "center");
+
+      doc.setFontSize(12);
+      y += 10;
+      doc.text(`Entreprise : ${name}`, 20, y);
+      doc.text(`Date : ${date}`, 20, y + 7);
+      doc.text(`Facture n° : #${invoiceNumber}`, 20, y + 14);
+
+      // Titres colonnes
+      y += 30;
+      doc.setFontSize(13);
+      doc.setFont("helvetica", "bold");
+      doc.text("Produit", 22, y);
+      doc.text("Prix", 100, y);
+      doc.text("Poids", 150, y);
+      doc.setFont("helvetica", "normal");
+      y += 8;
+
+      // Produits
+      cart.forEach(item => {
+        const qty = item.quantity || 1;
+        const total = item.price * qty;
+        const weight = parseFloat(item.weight) || 0;
+        const unit = item.unit || 'kg';
+        doc.text(`${qty}x ${item.name}`, 22, y);
+        doc.text(`${total}$`, 100, y);
+        doc.text(`${(weight * qty).toFixed(2)}${unit}`, 150, y);
+        y += 8;
+      });
+
+      // Totaux
+      const total = cart.reduce((acc, item) => acc + item.price * (item.quantity || 1), 0);
+      const totalWeight = cart.reduce((acc, item) => acc + (parseFloat(item.weight) || 0) * (item.quantity || 1), 0);
+
+      y += 12;
+      doc.setFontSize(14);
+      doc.setFont("helvetica", "bold");
+      doc.text(`TOTAL : ${total}$`, 180, y, null, null, 'right');
+      y += 8;
+      doc.text(`Poids total : ${totalWeight.toFixed(2)}kg`, 180, y, null, null, 'right');
+      doc.setFont("helvetica", "normal");
+
+      // Signature RP
+      y += 25;
+      doc.setFontSize(11);
+      doc.text("Signature RP : ___________________________", 20, y);
+
+      // Envoi vers Discord
+      const blob = doc.output("blob");
+      const form = new FormData();
+      form.append("file", blob, `facture-${name}.pdf`);
+      form.append("content", `📄 Facture pour **${name}**`);
+
+      const webhookURL = webhooks[name];
+      if (!webhookURL) {
+        alert("Aucun webhook configuré pour cette entreprise.");
+        return;
+      }
+
+
+      await fetch(webhookURL, {
+        method: "POST",
+        body: form
+      });
+
+      alert("📄 Facture envoyée dans le ticket Discord !");
+    }
+
   </script>
 </body>
 

@@ -178,3 +178,70 @@ body {
     background-color: #f9f9f9;
   }
   
+/* ----- DARK MODE SWITCH ----- */
+.switch {
+  position: fixed;
+  top: 10px;
+  right: 100px;
+  width: 50px;
+  height: 28px;
+  z-index: 1000;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  content: "";
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #4caf50;
+}
+
+input:checked + .slider:before {
+  transform: translateX(22px);
+}
+
+/* DARK MODE STYLES */
+body.dark-mode {
+  background-color: #121212;
+  color: #e0e0e0;
+}
+
+body.dark-mode .product,
+body.dark-mode .cart-item {
+  background-color: #1e1e1e;
+  border: 1px solid #333;
+}
+
+body.dark-mode input,
+body.dark-mode select,
+body.dark-mode button {
+  background-color: #2a2a2a;
+  color: #fff;
+  border: 1px solid #444;
+}
