@@ -145,29 +145,11 @@
         })
       })
         .then(() => {
-          // Envoi dans Google Sheets
-          const googlePayload = {
-            company: name,
-            items: cart.map(item => ({
-              name: item.name,
-              quantity: item.quantity || 1,
-              weight: parseFloat(item.weight) || 0,
-              unit: item.unit || 'kg',
-              total: item.price * (item.quantity || 1)
-            }))
-          };
-
-          return fetch("https://script.google.com/macros/s/AKfycbz4asvB_sCrrK-E52hZLkgYWJurlhnd8-1qg9pl7IGR8i9KkyMQNeRrk-ea67KooQ_QcQ/exec", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(googlePayload)
-          });
-        })
-        .then(() => {
           localStorage.removeItem("cart");
           location.reload();
         })
-        .catch(err => console.error("❌ Erreur d'envoi :", err));
+        .catch(err => console.error("Erreur d'envoi : ", err));
+
 
     }
 
